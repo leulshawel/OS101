@@ -1,6 +1,7 @@
 org 0x7c00
 [ bits 16 ]
-;Print the hex of dx
+;print dx register content in hex
+;not having shr reg1, reg2 was a a real pain
 print_hex:
     mov cx, shift_c
     

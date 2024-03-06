@@ -1,3 +1,4 @@
+;uses the BIOS routin to print a text before switching to 32 bit pm
 ;Print a string routin address in bx
 [ bits 16 ]
 print_string:
