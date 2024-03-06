@@ -11,11 +11,12 @@ _start:
     mov bp, 0x9000
     mov sp, bp
 
+    
     mov [BOOT_DRIVE], dl ;SAve the disk id returned by BIOS 
     mov bx, FIRST_MSG    ;Announce bootstraping
     call print_string 
 
-    ;load kernel
+    ;load the kernel binary from the drive to memory
     call load_kernel
 
     ;swith to 32 bit prot mod
@@ -29,8 +30,10 @@ _start:
 %include './boot/gdt.asm'
 
 [ bits 16 ]
+;load the os.img file to address 0x1000 in memory using the seaBIOs routine
+;the loaded binary has a 4kB elf header which is non sense in this context
 load_kernel:
-    mov bx, KERNEL_OFFSET
+    mov bx, KERNEL_OFFSET   ;address to load the data to
     mov dh, 0xf    ;number of sectors to read
     mov dl, [BOOT_DRIVE] ;drive number
     call disk_load
