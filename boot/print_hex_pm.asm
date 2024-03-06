@@ -1,9 +1,12 @@
 
 [ bits 32 ]
-;Print the hex of addr ebx, up to ebx + ecx
+;simple hex printer routine (for debuging purpose)
+;Print the hex from addr ebx, up to ebx + ecx
 VIDEO_MEMORY2 equ 0xb8000
 print_hex_pm:
+    push eax
     xor edx, edx
+    xor eax, eax
 
 loop_hex_pm:
     mov byte dl , [ebx]
@@ -19,6 +22,7 @@ loop_hex_pm:
     inc eax
     jmp loop_hex_pm
 done_hex_pm:
+    pop eax
     ret
 
 shift_4_pm:

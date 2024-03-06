@@ -1,7 +1,7 @@
 #include "def.h"
 #include "mem.h"
 
-extern char* kend; //The end of kernel code provided by the linker
+extern char* kend; //The end of kernel code provided by the linker but not working properly so far
 void meminit101(){
     //create a kernel memory KERSTART -> kend
     kernelMem.start = KERSTART;
@@ -13,28 +13,28 @@ void meminit101(){
     consolMem.start = VIDEOMEM;
     consolMem.end = VIDMEMEND;
     consolMem.owner = "cns";
-    consolMem.flags = (char) (RD | WR | EX);
+    consolMem.flags = (char) (RD | WR);
 
     //the rest of memory in kernel segment 
     kernelMem2.start = kend+1 ;
     kernelMem2.end = KERSEGLIM;
     kernelMem2.owner = "free";
-    kernelMem2.flags = (char) (RD | WR | EX);
+    kernelMem2.flags = (char) (RD | WR );
 
     //the rest of memory in kernel segment 
     gdt.start = GDTSTART;
     gdt.end = GDTSTART + 8*SEGNUM;
     gdt.owner = "gdt";
-    gdt.flags = (char) (RD | WR | EX);
+    gdt.flags = (char) (RD);
 
     //zero out the memory layout address before building the layout
     memset101((char*)ram, 0x0, 0x0fff);
     
 
-    ram[0] = &kernelMem; //add to layout
-    ram[1] = &consolMem; //add to layout
-    ram[2] = &kernelMem2; //add to layout
-    ram[3] = &gdt; //add to layout
+    ram[0] = &kernelMem;    //add to layout
+    ram[1] = &consolMem;    //add to layout
+    ram[2] = &kernelMem2;   //add to layout
+    ram[3] = &gdt;          //add to layout
 
     //clear every memory except mapped I/O and KERNEL segment
     //memset101(kend, 0x0, (KERSEGLIM - (int)kend));

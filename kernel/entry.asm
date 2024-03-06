@@ -1,6 +1,8 @@
 [bits 32]
 [ extern _101 ] 
-lapicid equ 0xFEE00020
+
+;this is the entry point in to the kernel
+;entry calls _101(in kernel.c) with cpuid and ebp as arguments
 
 entry:
     ;get apicid of BSP
