@@ -18,7 +18,7 @@ void meminit101(){
     //the rest of memory in kernel segment 
     kernelMem2.start = kend+1 ;
     kernelMem2.end = KERSEGLIM;
-    kernelMem2.owner = "free";
+    kernelMem2.owner = "_";
     kernelMem2.flags = (char) (RD | WR );
 
     //the rest of memory in kernel segment 

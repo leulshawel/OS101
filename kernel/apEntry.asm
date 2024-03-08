@@ -6,7 +6,7 @@
 ;they get in a race condition to get the key, setup their stack and call _101
 ;whoever gets the 0x1 in the key sets it to zero which makes other core 
 ;sit in a loop untill that core setups its stack and increment the stack variable by 1K for the coming core
-;increment the number of cores and sets the key to 1 before jumping to _101
+;increment the number of cores and sets the key back to 1 before jumping to _101
 ;so other APs can do the same 
 cores: db 0x1
 run:
