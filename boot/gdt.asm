@@ -81,9 +81,9 @@ init_proc_mode:
     ;there for we make a call to address 0x2000 jmping straight to the entry code
     ;ignoring the elf header
     
-    mov dword [0x1000], gdt_start       ;gdt address
-    mov dword [0x1004], KERNEL_CODE_SEG ;kernel segment
-    mov dword [0x1008], USER_CODE_SEG   ;user segment
+    mov dword [0x1000], gdt_start  ;gdt address
+    mov dword [0x1004], gdt_kernel ;kernel segment
+    mov dword [0x1008], gdt_user   ;user segment
 
     call KERNEL_OFFSET*2 ;call 0x2000
     jmp $

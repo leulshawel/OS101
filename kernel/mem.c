@@ -4,13 +4,25 @@
 extern char* kend; //The end of kernel code provided by the linker but not working properly so far
 
 void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
+    //before building the memolry layout in layout section clear it first
+    memset101((void*)ram, 0x0, 0x0fff);
+    //add the two segments in the ram 
+    ram[0] = &kernelSeg;
+    ram[1] = &userSeg;
+
     //the kernel segment    defined in mem.h
+    kernelSeg.owner = "101";
     kernelSeg.start = 0x0;
     kernelSeg.end =  KERSEGLIM;
+    kernelSeg.gdtAddr =  kerSegGDTAddr;
+    kernelSeg.access = ((char*)kerSegGDTAddr)[5];
 
     //the user segment
+    userSeg.owner = "usr";
     userSeg.start = KERSEGLIM + 1;
     userSeg.end =  0xffffffff;
+    userSeg.access = ((char*)usrSegGDTAddr)[5];
+
 
     //create a kernel section KERSTART -> kend
     kernelMem.start = KERSTART;
@@ -28,7 +40,7 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     consolMem.seg = &kernelSeg;
 
     //remaining sections in the kernel segment 
-    //if the kernel ever needs memory it gets it from this chunck
+    //if the kernel ever needs memory it gets it from this section
     kernelMem2.start = kend+1 ;
     kernelMem2.end = KERSEGLIM;
     kernelMem2.owner = "_";
@@ -61,16 +73,21 @@ void memset101(void* start, char value, int size){
 
 //print the memory sections
 void memLayout101(){
-    struct Section** index = ram;
-    struct Section* mem;
+    struct Segment** index = ram;
+    struct Segment* seg;
     for(; *index; index++){
-        mem = *index;
-        printf101("/Owner: ");
-        printf101(mem->owner);
-        printf101("/starting: ");
-        printhex101(&(mem->start), 4);
-        printf101("/ends at: ");
-        printhex101(&(mem->end), 4);
+        seg = *index;
+        printf101("/Segment Owner: ");
+        printf101(seg->owner);
+        printf101("/starting Addr: ");
+        printhex101(&(seg->start), 4);
+        printf101("/end Addr: ");
+        printhex101(&(seg->end), 4);
+        printf101("/Access flags: ");
+        printhex101(&(seg->access), 1);
+        printf101("/number of sections: ");
+        printhex101(&(seg->secNum), 1);
+        printf101("/");
     }
 }
 
@@ -83,10 +100,14 @@ void kmalloc(uint8 p){
 
 //add a section in to the right segment
 void addSectoSeg(struct Section* sec){
-    if (sec->start >= USRSEGSTART)
-        *(userSeg.sections + userSeg.secNum) = sec;
-    else
-        *(kernelSeg.sections + kernelSeg.secNum) = sec;
+    if (sec->start >= USRSEGSTART){
+        userSeg.sections[userSeg.secNum] = sec;
+        userSeg.secNum++;
+    }
+    else{
+        kernelSeg.sections[kernelSeg.secNum] = sec;
+        kernelSeg.secNum++;
 
-    
+    }
+
 }

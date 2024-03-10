@@ -15,10 +15,10 @@ struct Section{
 struct Segment{
     void* start;        //base of segment
     void* end;          //limit of this segment
-    void* index;        //segment index in gdt
+    void* gdtAddr;        //segment index in gdt
     char* owner;        //kernel or user
-    char flags;         //flags of the segment
-    char access;        //access flags of this segment
+    uint8 flags;        //pointer to the flags of the segment
+    uint8 access;       //pointer to the access flags of this segment
     uint8 secNum;       //number of sections under this segment
     struct Secion** sections; //sections under this segment
 };
