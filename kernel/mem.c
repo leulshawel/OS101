@@ -11,6 +11,7 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     ram[1] = &userSeg;
 
     //the kernel segment    defined in mem.h
+    kernelSeg.secNum = 0;
     kernelSeg.owner = "101";
     kernelSeg.start = 0x0;
     kernelSeg.end =  KERSEGLIM;
@@ -18,6 +19,7 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     kernelSeg.access = ((char*)kerSegGDTAddr)[5];
 
     //the user segment
+    userSeg.secNum = 0;
     userSeg.owner = "usr";
     userSeg.start = KERSEGLIM + 1;
     userSeg.end =  0xffffffff;
@@ -54,6 +56,10 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     gdt.owner = "gdt";
     gdt.flags = (char) (RD);
     gdt.seg = &kernelSeg;
+
+    addSectoSeg(&gdt);
+    addSectoSeg(&kernelMem2);
+    addSectoSeg(&kernelMem);
 
 
 
