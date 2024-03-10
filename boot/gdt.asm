@@ -32,14 +32,14 @@ gdt_user_code :
     dw 0xffff       ;limit
     dw 0xf001       ;base
     db 0xff         ;base
-    db 10011010b    ;access byte
+    db 11111010b    ;access byte
     db 11001111b    ;4flags and 4 limit
     db 0x3f         ;base
 gdt_user_data:
-    dw 0xffff      
+    dw 0xffff       
     dw 0xf001      
     db 0xff        
-    db 10011010b   
+    db 11111010b   
     db 11001111b   
     db 0x3f        
 gdt_end:

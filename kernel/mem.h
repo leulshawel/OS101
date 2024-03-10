@@ -4,14 +4,15 @@
 
 // a section of memory
 struct Section{
-    void* start;
-    void* end;
-    char* owner;
-    char flags;
-    uint8 secId;
-    struct Segment* seg;
+    void* start;    //start addr of section
+    void* end;      //end addr 
+    char* owner;    //owner process of kernel (free sections are owned by _)
+    char flags;     //the flags related to this section
+    uint8 secId;    //id of this section (used as entry in to the sections array of a segment)
+    struct Segment* seg;    //which segment this section is in 
 };
 
+//segment of memory
 struct Segment{
     void* start;        //base of segment
     void* end;          //limit of this segment
@@ -23,15 +24,15 @@ struct Segment{
     struct Secion** sections; //sections under this segment
 };
 
-//the two segments of memory
-struct Segment kernelSeg;   //highest previlage kernel segment
-struct Segment userSeg;     //low previlage user segment
 
 //memory lay out stored at this address
 struct Segment** ram = (struct Segment**)0x1000; 
 
+//the two segments of memory
+struct Segment kernelSeg;   //highest previlage kernel segment
+struct Segment userSeg;     //low previlage user segment
 
-
+//predefined sections of memory
 struct Section kernelMem;    //kernel code
 struct Section kernelMem2;   //remainnig section of kernel segment after the kernel code to the end of kernel segment
 struct Section consolMem;    //console is mapped at this memory at least in QEMU

@@ -32,6 +32,7 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     kernelMem.owner = "101";
     kernelMem.flags = (char) (RD | WR | EX);
     kernelMem.seg = &kernelSeg;
+    addSectoSeg(&kernelMem);
 
 
     //create console section
@@ -40,6 +41,7 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     consolMem.owner = "cns";
     consolMem.flags = (char) (RD | WR);
     consolMem.seg = &kernelSeg;
+    addSectoSeg(&consolMem);
 
     //remaining sections in the kernel segment 
     //if the kernel ever needs memory it gets it from this section
@@ -48,6 +50,7 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     kernelMem2.owner = "_";
     kernelMem2.flags = (char) (RD | WR );
     kernelMem2.seg = &kernelSeg;
+    addSectoSeg(&kernelMem2);
 
 
     //Global desriptor table section
@@ -56,10 +59,8 @@ void meminit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr){
     gdt.owner = "gdt";
     gdt.flags = (char) (RD);
     gdt.seg = &kernelSeg;
-
     addSectoSeg(&gdt);
-    addSectoSeg(&kernelMem2);
-    addSectoSeg(&kernelMem);
+
 
 
 
