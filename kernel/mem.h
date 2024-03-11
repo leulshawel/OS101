@@ -2,11 +2,17 @@
 #define WR 0x2  //write
 #define EX 0x4  //execute
 
-// a section of memory
+
+//a chunk of memory
+//this is what we will use to keep 
+//track of memory chuncks owner processes
+//and also used to to buid a datastructure of the 
+//user memory segment
 struct Section{
     void* start;    //start addr of section
     void* end;      //end addr 
     char* owner;    //owner process of kernel (free sections are owned by _)
+    struct Proc* ownerProc; //owner process
     char flags;     //the flags related to this section
     uint8 secId;    //id of this section (used as entry in to the sections array of a segment)
     struct Segment* seg;    //which segment this section is in 
@@ -25,6 +31,9 @@ struct Segment{
 };
 
 
+
+
+
 //memory lay out stored at this address
 struct Segment** ram = (struct Segment**)0x1000; 
 
@@ -32,11 +41,15 @@ struct Segment** ram = (struct Segment**)0x1000;
 struct Segment kernelSeg;   //highest previlage kernel segment
 struct Segment userSeg;     //low previlage user segment
 
-//predefined sections of memory
+//predefined sections of memory in kernel segment
+struct Section kernelStack;  //the kernel stack section
 struct Section kernelMem;    //kernel code
-struct Section kernelMem2;   //remainnig section of kernel segment after the kernel code to the end of kernel segment
+struct Section kernelFree;   //remainnig section of kernel segment after the kernel code to the end of kernel segment
 struct Section consolMem;    //console is mapped at this memory at least in QEMU
 struct Section gdt;          //gdt address for 101
+
+//build a data strcuture for the sections 
+//in useer segment (a linked list)
 
 
 void memset101(void* start, char value, int size);
