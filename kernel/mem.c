@@ -33,7 +33,7 @@ void memInit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr, void* sta
     kernelStack.owner = "101";
     kernelStack.flags = (char) (RD | WR | EX);
     kernelStack.secId = 0;
-    kernelStack.ownerProc = &proc101;  
+    kernelStack.ownerProc = &proc101;   
     addSectoSeg(&kernelStack);
 
     //create a kernel section KERSTART -> kend
@@ -97,7 +97,7 @@ void memset101(void* start, char value, int size){
 void memLayout101(){
     struct Segment** index = ram;
     struct Segment* seg;
-    for(; *index; index++){
+    for(; *index || index < PROCDSADDR; index++){
         seg = *index;
         printf101("/Segment Owner: ");
         printf101(seg->owner);

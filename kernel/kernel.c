@@ -20,10 +20,13 @@ int _101(int* stackBase, int* cpuid, void* gdtAddr, void* kerSegGDTAddr, void*us
     
     //initialize the memory
     memInit101(gdtAddr, kerSegGDTAddr, usrSegGDTAddr, stackBase);
+    //initialize process management
+    procInit101();
+    //initialize process management and data structure
+    
+    
 
-    //print the memory sections created so far
-    //printf101("KERNEL Memory lay out/");
-    //memLayout101();                                     
+                                  
     
     //initialize file system
     //fsinit101();                                      

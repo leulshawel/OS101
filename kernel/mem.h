@@ -22,7 +22,7 @@ struct Section{
 struct Segment{
     void* start;        //base of segment
     void* end;          //limit of this segment
-    void* gdtAddr;        //segment index in gdt
+    void* gdtAddr;      //segment index in gdt
     char* owner;        //kernel or user
     uint8 flags;        //pointer to the flags of the segment
     uint8 access;       //pointer to the access flags of this segment
@@ -35,7 +35,7 @@ struct Segment{
 
 
 //memory lay out stored at this address
-struct Segment** ram = (struct Segment**)0x1000; 
+struct Segment** ram = (struct Segment**)MEMDSADDR; 
 
 //the two segments of memory
 struct Segment kernelSeg;   //highest previlage kernel segment
