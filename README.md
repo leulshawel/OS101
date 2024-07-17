@@ -4,7 +4,7 @@ Thisis is my first attempt to build a "modern" operating system
 
 <b>!!!You wanna understand something? Build it!!!</b>
 
-<b><h4>Getting started<h4></b><br>
+<h4>Getting started<h4>
 
 <h3>Requirements<h3><br>
     - qemu-system-x86_64 
