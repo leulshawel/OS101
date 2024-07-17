@@ -6,7 +6,7 @@ Thisis is my first attempt to build a "modern" operating system
 
 <h3>Getting started</h3>
 
-<h4>Requirements</h4><br>
+<h4>Requirements</h4>
     - qemu-system-x86_64 
 
 <h4>Build and Run</h4>
