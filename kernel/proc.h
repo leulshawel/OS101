@@ -2,9 +2,11 @@
 
 
 #define MAXPROC 4
-#define RUNNING 1
-#define READY   2
-#define EXITED 0
+#define NEW   0
+#define READY  1
+#define WAITING   3
+#define RUNNING 4
+#define EXITED 5
 
 
 //main kernel process we will see if we ever need
@@ -14,7 +16,8 @@ struct Proc proc101;
 
 struct Proc{
     uint8 state; //running, ready, idle
-    uint8 id;    //we dont expect more than 256 processes running at a time 
+    uint8 id;    //we dont expect more than 256 processes running at a time
+    void* ip;    //the instruction pointer (Entry for new and break point for intrupted  processes)
     struct CpuCtx* ctx;     //used in context switching
     struct Proc* parent;    //who started that process
 };

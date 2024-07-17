@@ -11,7 +11,7 @@
 struct Section{
     void* start;    //start addr of section
     void* end;      //end addr 
-    char* owner;    //owner process of kernel (free sections are owned by _)
+    char* owner;    //owner process of kernel (free sections are owned by NULL)
     struct Proc* ownerProc; //owner process
     char flags;     //the flags related to this section
     uint8 secId;    //id of this section (used as entry in to the sections array of a segment)
@@ -48,8 +48,10 @@ struct Section kernelFree;   //remainnig section of kernel segment after the ker
 struct Section consolMem;    //console is mapped at this memory at least in QEMU
 struct Section gdt;          //gdt address for 101
 
-//build a data strcuture for the sections 
-//in useer segment (a linked list)
+//the user segment is one big chunck we
+//we can allocate to any process 
+struct Section main;
+
 
 
 void memset101(void* start, char value, int size);

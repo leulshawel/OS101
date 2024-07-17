@@ -1,6 +1,6 @@
 
 run: os.img
-	qemu-system-x86_64 -smp  cores=3 -fda os.img	
+	qemu-system-x86_64   -smp  cores=3 -fda os.img	
 
 
 os.img: boot.bin  kernel.bin
@@ -20,7 +20,7 @@ boot.bin: ./boot/bootloader.asm
 	cd ..
 
 
-clear: 
+clean: 
 	rm -f  ./kernel.o kernel.bin boot.bin os.img entry.o apEntry.o
 
 

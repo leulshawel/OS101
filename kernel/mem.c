@@ -76,12 +76,15 @@ void memInit101(void* gdtAddr, void*kerSegGDTAddr, void*usrSegGDTAddr, void* sta
     
     //covers the entire user segment 
     //all user processes get memory from this section
-    
-
+    main.start = USRSEGSTART;
+    main.end = 0xffffffff;
+    main.owner = NULL;
+    main.flags = (char) (RD | WR | EX);
+    main.secId = 0;             //zero section in user segment
+    addSectoSeg(&main);
 
     //clear every memory except mapped I/O and KERNEL segment
     //memset101(kend, 0x0, (KERSEGLIM - (int)kend));
-    //build a memory data structuret starting at kend
 
 }
 
@@ -94,7 +97,7 @@ void memset101(void* start, char value, int size){
 }
 
 //print the memory sections
-void memLayout101(){
+void printMem101(){
     struct Segment** index = ram;
     struct Segment* seg;
     for(; *index || index < PROCDSADDR; index++){

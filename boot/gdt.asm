@@ -4,6 +4,8 @@
 ;USER segment
     ;user code and data
 
+
+
 gdt_start:
 gdt_null:
     dd 0x0 

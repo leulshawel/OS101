@@ -21,16 +21,19 @@ void procPrint101(){
 
         printf101("/State: ");
         if (! index[0]->state)
-            printf101("Exited");
-        else if (index[0]->state == 1)
+            printf101("New");
+        else if (index[0]->state == RUNNING)
             printf101("Running");
-        else if (index[0]->state == 2)
+        else if (index[0]->state == READY)
             printf101("Ready");
+        else if (index[0]->state == WAITING)
+            printf101("Waiting");
         else
-            printf101("Invalid");
+            printf101("Invalid process state");
 
         printf101("/Parent: ");
         printhex101(&(index[0]->parent->id), 1);
+        printf101("/");
     }
 
 }

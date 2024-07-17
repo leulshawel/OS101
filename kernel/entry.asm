@@ -24,9 +24,6 @@ entry:
     push ebp ;pass the base of kernel stack
     
     call _101
-    pop esp
-    pop ebx
-    pop eax
     jmp $ 
 
 
