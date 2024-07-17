@@ -4,7 +4,7 @@
 
 Thisis is my first attempt to build a "modern" operating system
 
-<b>[In Prograss]</b>
+<b>[In Progress]</b>
 
 <h3>Getting started</h3>
 
