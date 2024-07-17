@@ -1,15 +1,15 @@
 <h1>OS101</h1>
 
-Thisis is my first attempt to build a "modern" operating system
-
 <b>!!!You wanna understand something? Build it!!!</b>
 
-<h4>Getting started<h4>
+Thisis is my first attempt to build a "modern" operating system
 
-<h3>Requirements<h3><br>
+<h3>Getting started</h3>
+
+<h4>Requirements</h4><br>
     - qemu-system-x86_64 
 
-<h3>Build and Run<h3><br>
+<h4>Build and Run</h4><br>
 this will build the project and run it with the suggested qemu flags
 
 ```sh
