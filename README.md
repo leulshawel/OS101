@@ -10,6 +10,8 @@ Thisis is my first attempt to build a "modern" operating system
 
 <h4>Requirements</h4>
     - qemu-system-x86_64 
+    - gcc (GNU C Compiler)
+    - make
 
 <h4>Build and Run</h4>
 this will build the project and run it with the suggested qemu flags
